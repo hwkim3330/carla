@@ -31,7 +31,35 @@ export CARLA_ROOT=/path/to/Carla-0.10.0-Linux-Shipping
 export PYTHONPATH=$CARLA_ROOT/PythonAPI/carla:$PYTHONPATH
 ```
 
-## 실행
+## 원클릭 실행 (권장)
+
+```bash
+# 이 레포지토리 클론
+git clone https://github.com/hwkim3330/carla.git
+cd carla
+
+# 실행 권한 부여
+chmod +x *.sh
+
+# 메뉴 선택 실행
+./run_carla.sh
+
+# 또는 바로가기 스크립트
+./run_manual.sh      # 수동 운전
+./run_autopilot.sh   # 자율주행 무한
+```
+
+### 스크립트 설명
+
+| 스크립트 | 설명 |
+|---------|------|
+| `run_carla.sh` | 메뉴에서 모드 선택 |
+| `run_manual.sh` | 수동 운전 바로 시작 |
+| `run_autopilot.sh` | 자율주행 무한 바로 시작 |
+
+> **Note:** 스크립트가 자동으로 서버 시작 → 로딩 대기 → 클라이언트 실행 → 종료 시 서버 정리까지 처리합니다.
+
+## 수동 실행
 
 ### CARLA 서버 시작
 ```bash

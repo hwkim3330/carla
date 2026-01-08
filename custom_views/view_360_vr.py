@@ -69,12 +69,6 @@ class Camera360VR:
             self.images['back'],
         ])
 
-        # 2:1 비율로 리사이즈
-        panorama = np.array(pygame.transform.scale(
-            pygame.surfarray.make_surface(panorama.swapaxes(0,1)),
-            (WIDTH, HEIGHT)
-        ).get_view().raw)
-
         return panorama
 
     def get_full_360(self):
@@ -105,9 +99,33 @@ def main():
     world = client.get_world()
 
     # 차량 스폰
-    bp = world.get_blueprint_library().filter('vehicle.tesla.model3')[0]
+    bp_lib = world.get_blueprint_library()
+    vehicle_bps = list(bp_lib.filter('vehicle.*'))
+    # 4바퀴 차량만 선택 (속성 없으면 그냥 포함)
+    four_wheel = []
+    for v in vehicle_bps:
+        try:
+            if v.has_attribute('number_of_wheels'):
+                if int(v.get_attribute('number_of_wheels')) == 4:
+                    four_wheel.append(v)
+            else:
+                four_wheel.append(v)
+        except:
+            four_wheel.append(v)
+    bp = random.choice(four_wheel if four_wheel else vehicle_bps)
     spawn_points = world.get_map().get_spawn_points()
-    vehicle = world.spawn_actor(bp, random.choice(spawn_points))
+
+    vehicle = None
+    for sp in spawn_points:
+        try:
+            vehicle = world.spawn_actor(bp, sp)
+            break
+        except:
+            continue
+
+    if vehicle is None:
+        print("Failed to spawn vehicle!")
+        return
 
     # 360 카메라
     cam360 = Camera360VR(world, vehicle)
@@ -159,12 +177,12 @@ def main():
                 img = cam360.get_panorama()
                 if img is not None:
                     surface = pygame.surfarray.make_surface(img.swapaxes(0, 1))
+                    surface = pygame.transform.scale(surface, (WIDTH, HEIGHT))
                     screen.blit(surface, (0, 0))
             else:
                 img = cam360.get_full_360()
                 if img is not None:
                     surface = pygame.surfarray.make_surface(img.swapaxes(0, 1))
-                    # 화면에 맞게 스케일
                     surface = pygame.transform.scale(surface, (WIDTH, HEIGHT))
                     screen.blit(surface, (0, 0))
 

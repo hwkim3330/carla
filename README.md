@@ -56,6 +56,8 @@ chmod +x *.sh
 | `run_carla.sh` | 메뉴에서 모드 선택 |
 | `run_manual.sh` | 수동 운전 바로 시작 |
 | `run_autopilot.sh` | 자율주행 무한 바로 시작 |
+| `run_360vr.sh` | 360도 VR 파노라마 뷰 |
+| `run_rgb_lidar.sh` | RGB + LiDAR 미니맵 뷰 |
 
 > **Note:** 스크립트가 자동으로 서버 시작 → 로딩 대기 → 클라이언트 실행 → 종료 시 서버 정리까지 처리합니다.
 
@@ -179,6 +181,43 @@ python automatic_control.py --behavior cautious
 python automatic_control.py --behavior normal   # 기본값
 python automatic_control.py --behavior aggressive
 ```
+
+## 커스텀 뷰
+
+### 360도 VR 뷰 (`run_360vr.sh`)
+
+갤럭시 XR 등 VR 헤드셋용 파노라마 뷰
+
+```bash
+./run_360vr.sh
+```
+
+| 키 | 기능 |
+|---|---|
+| `P` | 자율주행 ON/OFF |
+| `V` | 뷰 전환 (파노라마/큐브맵) |
+| `ESC` | 종료 |
+
+- 6방향 카메라로 360도 뷰 생성
+- Equirectangular 2:1 비율 (1920x960)
+- VR 스트리밍/녹화용
+
+### RGB + LiDAR 뷰 (`run_rgb_lidar.sh`)
+
+메인 RGB 화면 + 미니맵 오버레이
+
+```bash
+./run_rgb_lidar.sh
+```
+
+| 키 | 기능 |
+|---|---|
+| `P` | 자율주행 ON/OFF |
+| `M` | 미니맵 전환 (LiDAR/Depth/Semantic) |
+| `ESC` | 종료 |
+
+- 메인: RGB 카메라 (1280x720)
+- 미니맵 (우하단): LiDAR BEV / Depth / Semantic Segmentation
 
 ## 구조
 

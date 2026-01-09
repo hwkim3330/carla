@@ -1,14 +1,30 @@
-# CARLA UE5 시뮬레이터 가이드
+# CARLA 시뮬레이터 가이드
 
-CARLA 0.10.0 (Unreal Engine 5) 자율주행 시뮬레이터 설치 및 사용 가이드
+자율주행 시뮬레이터 CARLA 설치 및 사용 가이드
+
+## 버전 비교
+
+| 버전 | 엔진 | Tesla | 특징 |
+|------|------|-------|------|
+| 0.10.0 | UE5 | ❌ | 최신, 고품질 그래픽 |
+| 0.9.16 | UE4 | ✅ | 안정적, Tesla 포함 |
+| 0.9.15 | UE4 | ✅ | 검증된 버전 |
 
 ## 설치
 
-### 1. CARLA 다운로드
+### CARLA 다운로드
 ```bash
-# CARLA 0.10.0 Linux 다운로드
+# UE5 (0.10.0) - 최신
 wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/Carla-0.10.0-Linux-Shipping.tar.gz
 tar -xzf Carla-0.10.0-Linux-Shipping.tar.gz
+
+# UE4 (0.9.16) - Tesla 있음
+wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/CARLA_0.9.16.tar.gz
+mkdir CARLA_0.9.16 && tar -xzf CARLA_0.9.16.tar.gz -C CARLA_0.9.16
+
+# UE4 (0.9.15)
+wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/CARLA_0.9.15.tar.gz
+mkdir CARLA_0.9.15 && tar -xzf CARLA_0.9.15.tar.gz -C CARLA_0.9.15
 ```
 
 ### 2. Python 환경 설정 (Conda)
